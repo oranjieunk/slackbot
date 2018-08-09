@@ -4,15 +4,20 @@ from rtmbot.core import Plugin
 import secret
 
 
+def answer(text):
+    if "지은" in text:
+        message = "히힛>_<"
+    elif "주사위" == text:
+        message = str(random.randint(1, 6))
+    else:
+        message = None
+    return message
+
 class HelloPlugin(Plugin):
     def process_message(self, data):
-        if "지은" in data["text"]:
-            self.outputs.append([data["channel"], "히힛>_<"])
-        elif "주사위" == data["text"]:
-            die = str(random.randint(1, 6))
-            self.outputs.append([data["channel"], die])
-        else:
-            pass
+        reply = answer(data["text"])
+        if reply is not None:
+            self.outputs.append([data["channel"], message])
 
 
 config = {
